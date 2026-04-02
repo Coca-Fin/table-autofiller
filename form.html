@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Ввод данных</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 600px; font-family: monospace; font-size: 14px; }
+    button { padding: 10px 20px; font-size: 16px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+  <h1>Вставьте текст с товарами</h1>
+
+  <form id="myForm">
+    <textarea id="textData" name="product_data" placeholder="Вставьте сюда данные..."></textarea><br>
+    <button type="submit">Отправить</button>
+  </form>
+
+  <script>
+
+      const form = document.getElementById('myForm');
+
+      form.addEventListener('submit', function(e) {
+
+        var text = document.getElementById('textData').value;
+        
+        e.preventDefault();
+
+        google.script.run
+        .withSuccessHandler((result) => {
+          console.log(result);
+        })
+        .withFailureHandler((e) => {
+          console.error("Ошибка:", e.message);
+        })
+        .saveData(text);
+      });
+
+    </script>
+</body>
+</html>
